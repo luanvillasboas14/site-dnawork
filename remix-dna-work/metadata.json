@@ -1,0 +1,8 @@
+{
+  "name": "Remix DNA Work",
+  "description": "Plataforma de Recrutamento e Seleção moderna e dinâmica, especializada em programas de estágio e conexões corporativas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
