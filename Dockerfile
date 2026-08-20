@@ -1,4 +1,4 @@
-FROM node:20-alpine AS build
+FROM node:20-alpine AS frontend-builder
 
 WORKDIR /app
 
@@ -18,7 +18,7 @@ RUN npm run build
 
 FROM nginx:alpine
 
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=frontend-builder /app/dist /usr/share/nginx/html
 
 RUN printf 'server {\n\
     listen 3000;\n\
