@@ -293,7 +293,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ currentPersona, scro
             }}
             className="w-full sm:w-auto px-5 py-2.5 bg-[#1D1E4C] hover:bg-indigo-950 text-white font-bold text-xs rounded-full shadow-md transition-all shrink-0 cursor-pointer text-center"
           >
-            {activeTab === 'candidate' ? 'Conhecer Vagas Abertas' : 'Quero Recrutar com o CADU'}
+            {activeTab === 'candidate' ? 'Conhecer Vagas Abertas' : 'Quero Recrutar com o THEO'}
           </button>
         </div>
 

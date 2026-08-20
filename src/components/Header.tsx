@@ -18,7 +18,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPersona, setPersona, scro
 
   const navItems = [
     { label: 'Início', id: 'hero' },
-    { label: 'CADU IA', id: 'dina-section' },
+    { label: 'THEO IA', id: 'dina-section' },
     { label: 'Sobre Nós', id: 'about-section' },
     { label: 'Vagas', id: 'jobs-page' },
     ...(currentPersona === 'company' ? [{ label: 'Simular Economia', id: 'simulator-section' }] : []),

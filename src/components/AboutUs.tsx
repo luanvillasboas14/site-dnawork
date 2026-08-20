@@ -4,7 +4,7 @@ import { DecorativeShape } from './DecorativeShapes';
 // @ts-ignore
 import dnaWorkTeam from '../assets/images/tes quem somos.png';
 // @ts-ignore
-import caduRobot from '../assets/images/Lobo_Showing.png';
+import theoRobot from '../assets/images/Lobo_Showing.png';
 
 interface AboutUsProps {
   currentPersona?: 'candidate' | 'company';
@@ -12,10 +12,10 @@ interface AboutUsProps {
 }
 
 export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal }) => {
-  const [caduMobileIndex, setCaduMobileIndex] = useState(0);
+  const [theoMobileIndex, setTheoMobileIndex] = useState(0);
   const [showMoreMobile, setShowMoreMobile] = useState(false);
 
-  const caduFeatures = [
+  const theoFeatures = [
     {
       icon: <Zap size={18} />,
       colorBg: 'bg-orange-500/20 text-[#FF7A08]',
@@ -108,7 +108,7 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
 
         </div>
 
-        {/* Presenting CADU: Highlight Interactive Block */}
+        {/* Presenting THEO: Highlight Interactive Block */}
         <div id="dina-section" className="mt-8 md:mt-10 bg-[#FFEBDA] text-[#1D1E4C] rounded-2xl md:rounded-3xl p-5 sm:p-6 md:p-8 relative overflow-hidden shadow-lg text-left">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative z-10">
             {/* Left Side: Title and Feature Grid */}
@@ -118,7 +118,7 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
                   Inteligência Artificial Integrada
                 </span>
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-[#1D1E4C]">
-                  Como o CADU revoluciona o recrutamento de estágios?
+                  Como o THEO revoluciona o recrutamento de estágios?
                 </h3>
               </div>
 
@@ -127,9 +127,9 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
                 <div className="overflow-hidden rounded-xl">
                   <div 
                     className="flex transition-transform duration-300 ease-out"
-                    style={{ transform: `translateX(-${caduMobileIndex * 100}%)` }}
+                    style={{ transform: `translateX(-${theoMobileIndex * 100}%)` }}
                   >
-                    {caduFeatures.map((feature, idx) => (
+                    {theoFeatures.map((feature, idx) => (
                       <div key={idx} className="w-full shrink-0 px-0.5">
                         <div className="bg-white/60 backdrop-blur-sm p-4 rounded-xl border border-[#1D1E4C]/10 shadow-sm text-left">
                           <div className={`w-8 h-8 rounded-lg ${feature.colorBg} flex items-center justify-center mb-2`}>
@@ -146,7 +146,7 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
                 {/* Carousel Controls */}
                 <div className="flex items-center justify-between mt-3 px-1">
                   <button
-                    onClick={() => setCaduMobileIndex(prev => (prev === 0 ? caduFeatures.length - 1 : prev - 1))}
+                    onClick={() => setTheoMobileIndex(prev => (prev === 0 ? theoFeatures.length - 1 : prev - 1))}
                     aria-label="Anterior"
                     className="w-7 h-7 rounded-full bg-white/80 border border-[#1D1E4C]/10 text-[#1D1E4C] flex items-center justify-center shadow-sm active:scale-95 transition-all cursor-pointer"
                   >
@@ -154,13 +154,13 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
                   </button>
 
                   <div className="flex items-center gap-1.5">
-                    {caduFeatures.map((_, idx) => (
+                    {theoFeatures.map((_, idx) => (
                       <button
                         key={idx}
-                        onClick={() => setCaduMobileIndex(idx)}
+                        onClick={() => setTheoMobileIndex(idx)}
                         aria-label={`Ir para item ${idx + 1}`}
                         className={`h-2 rounded-full transition-all cursor-pointer ${
-                          idx === caduMobileIndex 
+                          idx === theoMobileIndex 
                             ? 'w-5 bg-[#FF7A08]' 
                             : 'w-2 bg-[#1D1E4C]/20'
                         }`}
@@ -169,7 +169,7 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
                   </div>
 
                   <button
-                    onClick={() => setCaduMobileIndex(prev => (prev === caduFeatures.length - 1 ? 0 : prev + 1))}
+                    onClick={() => setTheoMobileIndex(prev => (prev === theoFeatures.length - 1 ? 0 : prev + 1))}
                     aria-label="Próximo"
                     className="w-7 h-7 rounded-full bg-white/80 border border-[#1D1E4C]/10 text-[#1D1E4C] flex items-center justify-center shadow-sm active:scale-95 transition-all cursor-pointer"
                   >
@@ -180,7 +180,7 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
 
               {/* Desktop Grid View (hidden sm:grid) */}
               <div className="hidden sm:grid grid-cols-2 gap-3">
-                {caduFeatures.map((feature, idx) => (
+                {theoFeatures.map((feature, idx) => (
                   <div key={idx} className="bg-white/60 backdrop-blur-sm p-4 rounded-xl border border-[#1D1E4C]/10 hover:border-[#1D1E4C]/20 transition-all shadow-sm">
                     <div className={`w-8 h-8 rounded-lg ${feature.colorBg} flex items-center justify-center mb-2`}>
                       {feature.icon}
@@ -192,11 +192,11 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
               </div>
             </div>
 
-            {/* Right Side: CADU Mascot Image */}
+            {/* Right Side: THEO Mascot Image */}
             <div className="lg:col-span-4 flex justify-center lg:justify-end items-center">
               <img 
-                src={caduRobot} 
-                alt="Mascote CADU" 
+                src={theoRobot} 
+                alt="Mascote THEO" 
                 className="w-full max-w-[220px] sm:max-w-[250px] lg:max-w-[280px] h-auto object-contain transform hover:scale-105 transition-transform duration-300"
                 referrerPolicy="no-referrer"
               />
@@ -211,7 +211,7 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
               onClick={openLeadModal}
               className="pill-btn px-8 py-4 bg-[#FF7A08] hover:bg-[#e66c00] text-white font-extrabold text-sm sm:text-base rounded-full shadow-lg hover:shadow-orange-500/25 transition-all duration-300 flex items-center gap-2.5 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
             >
-              <span>Quero Recrutar com o CADU</span>
+              <span>Quero Recrutar com o THEO</span>
               <ArrowRight size={18} />
             </button>
           </div>

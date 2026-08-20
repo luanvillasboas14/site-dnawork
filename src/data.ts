@@ -119,7 +119,7 @@ export const TESTIMONIALS: Testimonial[] = [
 export const CHAT_FLOWS = {
   candidate: {
     start: {
-      text: "Olá! Sou o CADU, assistente de IA da DNA Work. 🚀 Pronto(a) para encontrar seu estágio ou primeiro emprego de forma rápida pelo WhatsApp?",
+      text: "Olá! Sou o THEO, assistente de IA da DNA Work. 🚀 Pronto(a) para encontrar seu estágio ou primeiro emprego de forma rápida pelo WhatsApp?",
       options: [
         { label: "Quero me candidatar", next: "candidate_area" },
         { label: "Como funciona?", next: "candidate_how" },
@@ -182,9 +182,9 @@ export const CHAT_FLOWS = {
   },
   company: {
     start: {
-      text: "Olá! Seja muito bem-vindo(a) à DNA Work. Sou o CADU. 🏢 Como posso ajudar sua empresa a contratar jovens talentos de forma 10x mais rápida?",
+      text: "Olá! Seja muito bem-vindo(a) à DNA Work. Sou o THEO. 🏢 Como posso ajudar sua empresa a contratar jovens talentos de forma 10x mais rápida?",
       options: [
-        { label: "Como o CADU IA funciona?", next: "company_how" },
+        { label: "Como o THEO IA funciona?", next: "company_how" },
         { label: "Simular Economia / ROI 💰", next: "company_roi" },
         { label: "Quero cadastrar uma vaga", next: "company_register" }
       ]

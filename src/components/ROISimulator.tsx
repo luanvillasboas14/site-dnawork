@@ -17,14 +17,14 @@ export const ROISimulator: React.FC<ROISimulatorProps> = ({ openLeadModal }) => 
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   // Constants
-  const CADU_DAYS = 4; // average days to fill a vacancy using CADU
-  const CADU_COST_REDUCTION_FACTOR = 0.72; // saving 72% compared to traditional
+  const THEO_DAYS = 4; // average days to fill a vacancy using THEO
+  const THEO_COST_REDUCTION_FACTOR = 0.72; // saving 72% compared to traditional
 
   // Calculations
-  const timeSavedPerHire = Math.max(1, traditionalDays - CADU_DAYS);
+  const timeSavedPerHire = Math.max(1, traditionalDays - THEO_DAYS);
   const totalTimeSaved = timeSavedPerHire * hiresCount;
   
-  const financialSavings = Math.round(traditionalCost * CADU_COST_REDUCTION_FACTOR * hiresCount);
+  const financialSavings = Math.round(traditionalCost * THEO_COST_REDUCTION_FACTOR * hiresCount);
   const hrHoursSaved = hiresCount * 16; // Average 16 HR hours saved per vacancy
 
   const formatCurrency = (value: number) => {
@@ -155,7 +155,7 @@ export const ROISimulator: React.FC<ROISimulatorProps> = ({ openLeadModal }) => 
 
             {/* Explanatory Note */}
             <div className="mt-5 pt-4 border-t border-white/10 text-[11px] text-slate-400 leading-relaxed">
-              *Os cálculos baseiam-se na automação do CADU IA via WhatsApp, que atinge taxas de resposta superiores a 90% e qualificação em menos de 10 minutos.
+              *Os cálculos baseiam-se na automação do THEO IA via WhatsApp, que atinge taxas de resposta superiores a 90% e qualificação em menos de 10 minutos.
             </div>
           </div>
 
@@ -231,11 +231,11 @@ export const ROISimulator: React.FC<ROISimulatorProps> = ({ openLeadModal }) => 
                   {/* DNA Work */}
                   <div>
                     <div className="flex justify-between font-bold text-[#1D1E4C] mb-0.5 text-[11px]">
-                      <span className="flex items-center gap-1 font-extrabold"><Sparkles size={11} className="text-[#FF7A08]" /> DNA Work (CADU)</span>
-                      <span className="text-[#FF7A08] font-extrabold">{CADU_DAYS} dias 🔥</span>
+                      <span className="flex items-center gap-1 font-extrabold"><Sparkles size={11} className="text-[#FF7A08]" /> DNA Work (THEO)</span>
+                      <span className="text-[#FF7A08] font-extrabold">{THEO_DAYS} dias 🔥</span>
                     </div>
                     <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                      <div className="bg-gradient-to-r from-[#FF7A08] to-orange-400 h-full rounded-full" style={{ width: `${(CADU_DAYS / traditionalDays) * 100}%` }}></div>
+                      <div className="bg-gradient-to-r from-[#FF7A08] to-orange-400 h-full rounded-full" style={{ width: `${(THEO_DAYS / traditionalDays) * 100}%` }}></div>
                     </div>
                   </div>
                 </div>
@@ -311,7 +311,7 @@ export const ROISimulator: React.FC<ROISimulatorProps> = ({ openLeadModal }) => 
             }}
             className="pill-btn px-8 py-4 bg-[#FF7A08] hover:bg-[#e66c00] text-white font-extrabold text-sm sm:text-base rounded-full shadow-lg hover:shadow-orange-500/25 transition-all duration-300 flex items-center gap-2.5 cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
           >
-            <span>Quero Recrutar com o CADU</span>
+            <span>Quero Recrutar com o THEO</span>
             <ArrowRight size={18} />
           </button>
         </div>

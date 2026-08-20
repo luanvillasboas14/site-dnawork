@@ -67,7 +67,7 @@ export const LeadFormModal: React.FC<LeadFormModalProps> = ({ isOpen, onClose })
           </div>
 
           <h3 id="modal-title" className="text-xl sm:text-2xl font-black tracking-tight text-white">
-            Quero Recrutar com o CADU
+            Quero Recrutar com o THEO
           </h3>
           <p className="text-xs sm:text-sm text-slate-200 mt-1.5 leading-relaxed font-medium">
             Preencha seus dados para receber uma demonstração e falar com nossos especialistas em recrutamento.

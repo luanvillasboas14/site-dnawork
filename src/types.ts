@@ -12,7 +12,7 @@ export interface Job {
 
 export interface Message {
   id: string;
-  sender: 'user' | 'cadu';
+  sender: 'user' | 'theo';
   text: string;
   timestamp: string;
 }

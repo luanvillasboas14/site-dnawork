@@ -68,7 +68,7 @@ export const Footer: React.FC<FooterProps> = ({ scrollToSection, currentPersona 
                 onClick={() => scrollToSection('hero')} 
                 className="hover:text-[#FF7A08] text-slate-400 transition-colors text-left"
               >
-                Página Inicial / CADU IA
+                Página Inicial / THEO IA
               </button>
               <button 
                 onClick={() => scrollToSection('about-section')} 
@@ -108,7 +108,7 @@ export const Footer: React.FC<FooterProps> = ({ scrollToSection, currentPersona 
                 </p>
                 <div className="flex flex-col space-y-1 text-xs text-slate-400 font-semibold">
                   <a 
-                    href="https://api.whatsapp.com/send/?phone=5511947637367&text=Ol%C3%A1!%20Quero%20iniciar%20minha%20entrevista%20com%20o%20CADU.&type=phone_number&app_absent=0" 
+                    href="https://api.whatsapp.com/send/?phone=5511947637367&text=Ol%C3%A1!%20Quero%20iniciar%20minha%20entrevista%20com%20o%20THEO.&type=phone_number&app_absent=0" 
                     target="_blank" 
                     rel="noreferrer" 
                     className="flex items-center gap-2 hover:text-[#FF7A08] transition-colors"
@@ -128,7 +128,7 @@ export const Footer: React.FC<FooterProps> = ({ scrollToSection, currentPersona 
                 </p>
                 <div className="flex flex-col space-y-1 text-xs text-slate-400 font-semibold">
                   <a 
-                    href="https://api.whatsapp.com/send/?phone=5511987023902&text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20DNA%20Work%20para%20empresas.&type=phone_number&app_absent=0" 
+                    href="https://api.whatsapp.com/send/?phone=5511932131004&text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20DNA%20Work%20para%20empresas.&type=phone_number&app_absent=0" 
                     target="_blank" 
                     rel="noreferrer" 
                     className="flex items-center gap-2 hover:text-[#FF7A08] transition-colors"

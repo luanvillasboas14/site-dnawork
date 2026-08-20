@@ -25,7 +25,7 @@ export const Hero: React.FC<HeroProps> = ({ persona, setPersona, openInterviewMo
   const [chatHistory, setChatHistory] = useState<Message[]>([
     {
       id: 'init-1',
-      sender: 'cadu',
+      sender: 'theo',
       text: persona === 'candidate' 
         ? CHAT_FLOWS.candidate.start.text 
         : CHAT_FLOWS.company.start.text,
@@ -43,7 +43,7 @@ export const Hero: React.FC<HeroProps> = ({ persona, setPersona, openInterviewMo
       setChatHistory([
         {
           id: `sync-${Date.now()}`,
-          sender: 'cadu',
+          sender: 'theo',
           text: persona === 'candidate' 
             ? CHAT_FLOWS.candidate.start.text 
             : CHAT_FLOWS.company.start.text,
@@ -78,13 +78,13 @@ export const Hero: React.FC<HeroProps> = ({ persona, setPersona, openInterviewMo
       
       if (nextData) {
         const replyTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        const caduMessage: Message = {
-          id: `cadu-${Date.now()}`,
-          sender: 'cadu',
+        const theoMessage: Message = {
+          id: `theo-${Date.now()}`,
+          sender: 'theo',
           text: nextData.text,
           timestamp: replyTime
         };
-        setChatHistory(prev => [...prev, caduMessage]);
+        setChatHistory(prev => [...prev, theoMessage]);
         setCurrentStep(nextStep);
       }
       setIsTyping(false);
@@ -123,7 +123,7 @@ export const Hero: React.FC<HeroProps> = ({ persona, setPersona, openInterviewMo
       ],
       socialCount: '+300 empresas parceiras',
       socialSubtitle: 'marcas de destaque contratando',
-      ctaPrimary: 'Quero Recrutar com o CADU',
+      ctaPrimary: 'Quero Recrutar com o THEO',
       ctaSecondary: 'Simular Economia / ROI'
     }
   };
@@ -192,7 +192,7 @@ export const Hero: React.FC<HeroProps> = ({ persona, setPersona, openInterviewMo
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
               {persona === 'candidate' ? (
                 <a
-                  href="https://api.whatsapp.com/send/?phone=5511947637367&text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20as%20vagas%20de%20est%C3%A1gio%20e%20fazer%20minha%20entrevista%20com%20o%20CADU.&type=phone_number&app_absent=0"
+                  href="https://api.whatsapp.com/send/?phone=5511947637367&text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20as%20vagas%20de%20est%C3%A1gio%20e%20fazer%20minha%20entrevista%20com%20o%20THEO.&type=phone_number&app_absent=0"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="pill-btn px-6 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base font-bold text-white rounded-full transition-all duration-300 shadow-lg cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0 justify-center bg-[#1D1E4C] hover:bg-[#121333] hover:shadow-xl inline-flex items-center gap-2"

@@ -128,13 +128,13 @@ export const Jobs: React.FC<JobsProps> = ({
       setInterviewMessages([
         {
           id: 'int-1',
-          sender: 'cadu',
-          text: `Olá! Sou o CADU. 🚀 Vi que você tem interesse na vaga de *${job.title}* na empresa *${job.company}*. Estou super animado para te entrevistar!`,
+          sender: 'theo',
+          text: `Olá! Sou o THEO. 🚀 Vi que você tem interesse na vaga de *${job.title}* na empresa *${job.company}*. Estou super animado para te entrevistar!`,
           timestamp: 'Agora'
         },
         {
           id: 'int-2',
-          sender: 'cadu',
+          sender: 'theo',
           text: `Para começarmos, me diz: qual o seu nome completo e qual a sua idade?`,
           timestamp: 'Agora'
         }
@@ -162,21 +162,21 @@ export const Jobs: React.FC<JobsProps> = ({
     const nextStep = interviewStep + 1;
     setInterviewStep(nextStep);
 
-    // CADU response logic based on steps
+    // THEO response logic based on steps
     setTimeout(() => {
-      let caduReply = '';
+      let theoReply = '';
       if (nextStep === 1) {
-        caduReply = `Excelente, muito prazer! 🎉 Agora me conta: qual é o seu nível de experiência com as atividades dessa área?`;
+        theoReply = `Excelente, muito prazer! 🎉 Agora me conta: qual é o seu nível de experiência com as atividades dessa área?`;
       } else if (nextStep === 2) {
-        caduReply = `Perfeito! E quanto à sua disponibilidade de horários? Essa vaga de *${selectedJobForInterview?.type}* é de modalidade *${selectedJobForInterview?.modality}*.`;
+        theoReply = `Perfeito! E quanto à sua disponibilidade de horários? Essa vaga de *${selectedJobForInterview?.type}* é de modalidade *${selectedJobForInterview?.modality}*.`;
       } else if (nextStep === 3) {
-        caduReply = `Massa! Suas respostas foram enviadas para análise automatizada. Parabéns pela conversa inteligente! Em processos reais, eu notificaria o RH da empresa e você seria agendado(a) em instantes. 🏆`;
+        theoReply = `Massa! Suas respostas foram enviadas para análise automatizada. Parabéns pela conversa inteligente! Em processos reais, eu notificaria o RH da empresa e você seria agendado(a) em instantes. 🏆`;
       }
 
       setInterviewMessages(prev => [...prev, {
-        id: `int-cadu-${Date.now()}`,
-        sender: 'cadu',
-        text: caduReply,
+        id: `int-theo-${Date.now()}`,
+        sender: 'theo',
+        text: theoReply,
         timestamp: 'Agora'
       }]);
       setIsInterviewTyping(false);
@@ -235,7 +235,7 @@ export const Jobs: React.FC<JobsProps> = ({
               ? 'Pesquise, filtre e encontre o seu estágio ou emprego perfeito. Faça a entrevista no WhatsApp conduzida por nossa I.A. em poucos minutos!'
               : (currentPersona === 'candidate' 
                   ? 'Encontre o seu estágio ou emprego perfeito e faça a entrevista no WhatsApp em poucos minutos!' 
-                  : 'Veja exemplos de vagas triadas e preenchidas pelo CADU para nossas empresas parceiras.')
+                  : 'Veja exemplos de vagas triadas e preenchidas pelo THEO para nossas empresas parceiras.')
             }
           </p>
           <div className="w-16 h-1.5 bg-[#FF7A08] mx-auto mt-4 rounded-full"></div>
@@ -477,7 +477,7 @@ export const Jobs: React.FC<JobsProps> = ({
               {/* Action Button */}
               <div>
                 <a
-                  href="https://api.whatsapp.com/send/?phone=5511947637367&text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20as%20vagas%20de%20est%C3%A1gio%20e%20fazer%20minha%20entrevista%20com%20o%20CADU.&type=phone_number&app_absent=0"
+                  href="https://api.whatsapp.com/send/?phone=5511947637367&text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20as%20vagas%20de%20est%C3%A1gio%20e%20fazer%20minha%20entrevista%20com%20o%20THEO.&type=phone_number&app_absent=0"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full py-2 bg-[#F4F7FA] hover:bg-[#FF7A08] hover:text-white text-[#1D1E4C] hover:text-white transition-colors rounded-xl text-[11px] font-bold uppercase tracking-wider cursor-pointer text-center"
@@ -525,7 +525,7 @@ export const Jobs: React.FC<JobsProps> = ({
       </div>
 
       {/* =======================================================
-          INTERACTIVE WHATSAPP INTERVIEW SIMULATOR MODAL (CADU)
+          INTERACTIVE WHATSAPP INTERVIEW SIMULATOR MODAL (THEO)
           ======================================================= */}
       {isInterviewOpen && selectedJobForInterview && (
         <div className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
@@ -539,7 +539,7 @@ export const Jobs: React.FC<JobsProps> = ({
                   <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border border-[#1D1E4C]"></div>
                 </div>
                 <div className="text-left">
-                  <h4 className="font-extrabold text-sm leading-tight">CADU Recrutador</h4>
+                  <h4 className="font-extrabold text-sm leading-tight">THEO Recrutador</h4>
                   <span className="text-[10px] text-green-300 font-semibold uppercase tracking-wider">online</span>
                 </div>
               </div>

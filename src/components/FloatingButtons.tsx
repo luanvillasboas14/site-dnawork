@@ -28,11 +28,11 @@ export const FloatingButtons: React.FC<FloatingButtonsProps> = ({ currentPersona
     });
   };
 
-  const whatsappNumber = currentPersona === 'company' ? '5511987023902' : '5511947637367';
+  const whatsappNumber = currentPersona === 'company' ? '5511932131004' : '5511947637367';
   const whatsappMessage = encodeURIComponent(
     currentPersona === 'company'
-      ? 'Olá! Gostaria de saber mais sobre como contratar estagiários com o CADU IA da DNA Work.'
-      : 'Olá! Quero saber mais sobre as vagas de estágio e fazer minha entrevista com o CADU.'
+      ? 'Olá! Gostaria de saber mais sobre como contratar estagiários com o THEO IA da DNA Work.'
+      : 'Olá! Quero saber mais sobre as vagas de estágio e fazer minha entrevista com o THEO.'
   );
   const whatsappUrl = `https://api.whatsapp.com/send/?phone=${whatsappNumber}&text=${whatsappMessage}&type=phone_number&app_absent=0`;
 
@@ -84,7 +84,7 @@ export const FloatingButtons: React.FC<FloatingButtonsProps> = ({ currentPersona
 
         {/* Hover Tooltip */}
         <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-[#1D1E4C] text-white text-xs font-bold rounded-xl shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none flex items-center gap-2 border border-white/10">
-          <span>Falar no WhatsApp com CADU</span>
+          <span>Falar no WhatsApp com THEO</span>
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
         </div>
       </a>
