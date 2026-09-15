@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Menu, X, Sparkles, Briefcase, User, ChevronRight, ChevronDown } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Menu, X, Sparkles, Briefcase, User, ChevronDown } from 'lucide-react';
 // @ts-ignore
 import logoFinal from '../assets/images/Logo Final (1).png';
 
@@ -12,9 +12,35 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ currentPersona, setPersona, scrollToSection }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownPinned, setIsDropdownPinned] = useState(false);
   const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
+  const loginDropdownRef = useRef<HTMLDivElement>(null);
+
+  const loginUrls = {
+    company: 'https://sistema.dnawork.ai/Empresa/index.php',
+    candidate: 'https://sistema.dnawork.ai/Candidato/index.php',
+  };
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const closeLoginDropdown = () => {
+    setIsDropdownOpen(false);
+    setIsDropdownPinned(false);
+  };
+
+  useEffect(() => {
+    if (!isDropdownOpen) return;
+
+    const handlePointerDown = (event: MouseEvent) => {
+      if (loginDropdownRef.current && !loginDropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+        setIsDropdownPinned(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    return () => document.removeEventListener('mousedown', handlePointerDown);
+  }, [isDropdownOpen]);
 
   const navItems = [
     { label: 'Início', id: 'hero' },
@@ -90,13 +116,26 @@ export const Header: React.FC<HeaderProps> = ({ currentPersona, setPersona, scro
 
             {/* CTAs */}
             <div 
+              ref={loginDropdownRef}
               className="relative" 
               id="login-dropdown-container"
-              onMouseLeave={() => setIsDropdownOpen(false)}
+              onMouseEnter={() => setIsDropdownOpen(true)}
+              onMouseLeave={() => {
+                if (!isDropdownPinned) setIsDropdownOpen(false);
+              }}
             >
               <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                onMouseEnter={() => setIsDropdownOpen(true)}
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={isDropdownOpen}
+                onClick={() => {
+                  if (isDropdownPinned) {
+                    closeLoginDropdown();
+                  } else {
+                    setIsDropdownOpen(true);
+                    setIsDropdownPinned(true);
+                  }
+                }}
                 className="flex items-center gap-1.5 px-5 py-2.5 text-xs font-bold text-white bg-[#1D1E4C] hover:bg-[#FF7A08] transition-all duration-300 rounded-full shadow-md shadow-blue-950/10 hover:shadow-orange-500/15"
               >
                 <span>Login</span>
@@ -104,28 +143,27 @@ export const Header: React.FC<HeaderProps> = ({ currentPersona, setPersona, scro
               </button>
               {isDropdownOpen && (
                 <div 
-                  className="absolute right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl py-2 z-50 animate-fadeIn"
+                  role="menu"
+                  className="absolute right-0 top-full pt-2 w-48 z-50"
                 >
-                  <button
-                    onClick={() => {
-                      setPersona('company');
-                      setIsDropdownOpen(false);
-                    }}
-                    className="flex items-center gap-2 w-full px-4 py-2.5 text-left text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#1D1E4C] transition-colors"
-                  >
-                    <Briefcase size={14} className="text-[#1D1E4C]" />
-                    Área da Empresa
-                  </button>
-                  <button
-                    onClick={() => {
-                      setPersona('candidate');
-                      setIsDropdownOpen(false);
-                    }}
-                    className="flex items-center gap-2 w-full px-4 py-2.5 text-left text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#FF7A08] transition-colors border-t border-slate-50"
-                  >
-                    <User size={14} className="text-[#FF7A08]" />
-                    Área do Candidato
-                  </button>
+                  <div className="bg-white border border-slate-100 rounded-2xl shadow-xl py-2 animate-fadeIn">
+                    <a
+                      href={loginUrls.company}
+                      role="menuitem"
+                      className="flex items-center gap-2 w-full px-4 py-2.5 text-left text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#1D1E4C] transition-colors"
+                    >
+                      <Briefcase size={14} className="text-[#1D1E4C]" />
+                      Área da Empresa
+                    </a>
+                    <a
+                      href={loginUrls.candidate}
+                      role="menuitem"
+                      className="flex items-center gap-2 w-full px-4 py-2.5 text-left text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#FF7A08] transition-colors border-t border-slate-50"
+                    >
+                      <User size={14} className="text-[#FF7A08]" />
+                      Área do Candidato
+                    </a>
+                  </div>
                 </div>
               )}
             </div>
@@ -219,28 +257,20 @@ export const Header: React.FC<HeaderProps> = ({ currentPersona, setPersona, scro
                 
                 {isMobileDropdownOpen && (
                   <div className="bg-slate-50 rounded-xl p-1.5 border border-slate-100 space-y-1 animate-fadeIn">
-                    <button
-                      onClick={() => {
-                        setPersona('company');
-                        setIsOpen(false);
-                        setIsMobileDropdownOpen(false);
-                      }}
+                    <a
+                      href={loginUrls.company}
                       className="flex items-center gap-2 w-full py-2.5 px-3 text-left text-xs font-bold text-slate-700 hover:bg-white rounded-lg transition-all"
                     >
                       <Briefcase size={12} className="text-[#1D1E4C]" />
                       Área da Empresa
-                    </button>
-                    <button
-                      onClick={() => {
-                        setPersona('candidate');
-                        setIsOpen(false);
-                        setIsMobileDropdownOpen(false);
-                      }}
+                    </a>
+                    <a
+                      href={loginUrls.candidate}
                       className="flex items-center gap-2 w-full py-2.5 px-3 text-left text-xs font-bold text-slate-700 hover:bg-white rounded-lg transition-all border-t border-slate-100"
                     >
                       <User size={12} className="text-[#FF7A08]" />
                       Área do Candidato
-                    </button>
+                    </a>
                   </div>
                 )}
               </div>
