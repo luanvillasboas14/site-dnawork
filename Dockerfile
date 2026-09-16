@@ -27,11 +27,11 @@ RUN printf 'server {\n\
     index index.html;\n\
     location = /favicon.ico {\n\
         default_type image/x-icon;\n\
-        add_header Cache-Control "no-cache, must-revalidate";\n\
+        add_header Cache-Control "public, max-age=86400";\n\
         try_files /favicon.ico =404;\n\
     }\n\
     location ~* \\.(png|ico)$ {\n\
-        add_header Cache-Control "no-cache, must-revalidate";\n\
+        add_header Cache-Control "public, max-age=86400";\n\
         try_files $uri =404;\n\
     }\n\
     location / {\n\
