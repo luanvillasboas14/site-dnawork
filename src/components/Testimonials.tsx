@@ -10,9 +10,10 @@ interface TestimonialsProps {
   currentPersona: 'candidate' | 'company';
   scrollToSection?: (id: string) => void;
   openLeadModal?: () => void;
+  hideBackground?: boolean;
 }
 
-export const Testimonials: React.FC<TestimonialsProps> = ({ currentPersona, scrollToSection, openLeadModal }) => {
+export const Testimonials: React.FC<TestimonialsProps> = ({ currentPersona, scrollToSection, openLeadModal, hideBackground = false }) => {
   const [activeTab, setActiveTab] = useState<'candidate' | 'company'>(currentPersona);
   const [mobileIndex, setMobileIndex] = useState(0);
   const [expandedIds, setExpandedIds] = useState<Record<string, boolean>>({});
@@ -78,14 +79,11 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ currentPersona, scro
   };
 
   return (
-    <section 
-      className="relative overflow-hidden bg-cover bg-center bg-no-repeat pt-6 pb-12 md:pt-8 md:pb-16 px-4 sm:px-6 lg:px-8"
-      style={{
-        backgroundImage: `url("${lacosBg}")`
-      }}
+    <section
+      className="relative overflow-visible pt-6 pb-12 md:pt-8 md:pb-16 px-4 sm:px-6 lg:px-8"
+      style={hideBackground ? undefined : { backgroundImage: `url("${lacosBg}")` }}
     >
-      {/* Light subtle overlay to enhance background visibility while maintaining readability */}
-      <div className="absolute inset-0 bg-white/65 pointer-events-none z-0" />
+      {!hideBackground && <div className="absolute inset-0 bg-white/65 pointer-events-none z-0" />}
 
       {/* Decorative Ornaments */}
       <DecorativeShape type="star" className="absolute top-8 right-[6%] w-10 h-10 text-[#FF7A08]/15" />

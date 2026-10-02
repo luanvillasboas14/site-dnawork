@@ -42,13 +42,14 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
     },
   ];
   return (
-    <section id="about-section" className="relative overflow-hidden bg-white pt-6 pb-6 md:pt-8 md:pb-8 px-4 sm:px-6 lg:px-8">
+    <section id="about-section" className="relative overflow-visible pt-6 pb-6 md:pt-8 md:pb-8 px-4 sm:px-6 lg:px-8">
       {/* Decorative Floating Shapes */}
       <DecorativeShape type="diamond" className="absolute top-6 right-[8%] w-8 h-8 text-orange-500/10" />
       <DecorativeShape type="star" className="absolute bottom-10 left-[6%] w-10 h-10 text-[#1D1E4C]/15" />
       <DecorativeShape type="plus" className="absolute top-[40%] left-[45%] w-6 h-6 text-teal-400/20" />
 
       <div className="max-w-7xl mx-auto">
+        <div>
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
@@ -105,7 +106,7 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
               <ChevronDown size={14} className={`transform transition-transform duration-200 ${showMoreMobile ? 'rotate-180' : ''}`} />
             </button>
           </div>
-
+        </div>
         </div>
 
         {/* Presenting THEO: Highlight Interactive Block */}

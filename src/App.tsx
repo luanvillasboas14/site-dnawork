@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { StatsCounter } from './components/StatsCounter';
@@ -9,41 +10,77 @@ import { Testimonials } from './components/Testimonials';
 import { Footer } from './components/Footer';
 import { FloatingButtons } from './components/FloatingButtons';
 import { LeadFormModal } from './components/LeadFormModal';
+import { ResumeGenerator, ResumeIntro } from './components/ResumeGenerator';
+import { isResumeGeneratorLocation } from './lib/resumeSite';
 import { Job } from './types';
+// @ts-ignore
+import lacosBg from './assets/images/Laços (1).png';
 
 export default function App() {
   const [persona, setPersona] = useState<'candidate' | 'company'>('candidate');
-  const handleSetPersona = (newPersona: 'candidate' | 'company') => {
-    setPersona(newPersona);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-  const [currentView, setView] = useState<'landing' | 'vagas'>('landing');
-  
-  // States for the interactive interview modal inside Jobs
+  const [currentView, setView] = useState<'landing' | 'vagas' | 'curriculo'>('landing');
   const [isInterviewOpen, setIsInterviewOpen] = useState<boolean>(false);
   const [selectedJobForInterview, setSelectedJobForInterview] = useState<Job | null>(null);
-
-  // State for B2B Company Lead Form modal
   const [isLeadModalOpen, setIsLeadModalOpen] = useState<boolean>(false);
   const openLeadModal = () => setIsLeadModalOpen(true);
+  const pendingScroll = useRef<'top' | string | null>(null);
+
+  useLayoutEffect(() => {
+    const target = pendingScroll.current;
+    if (!target) return;
+    pendingScroll.current = null;
+    if (target === 'top') {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      return;
+    }
+    const element = document.getElementById(target);
+    if (element) {
+      element.scrollIntoView({ behavior: 'auto', block: 'start' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+  }, [currentView]);
+
+  const handleSetPersona = (newPersona: 'candidate' | 'company') => {
+    setPersona(newPersona);
+    if (newPersona === 'company' && currentView === 'curriculo') {
+      setView('landing');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const scrollToSection = (id: string) => {
+    const jumpToTop = () => {
+      const root = document.documentElement;
+      const previous = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      root.scrollTop = 0;
+      document.body.scrollTop = 0;
+      root.style.scrollBehavior = previous;
+    };
+
     if (id === 'jobs-page') {
-      setView('vagas');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      jumpToTop();
+      if (currentView !== 'vagas') {
+        flushSync(() => setView('vagas'));
+        jumpToTop();
+      }
+      return;
+    }
+
+    if (id === 'resume-page') {
+      if (currentView !== 'curriculo') {
+        pendingScroll.current = 'top';
+        setView('curriculo');
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
       return;
     }
 
     if (currentView !== 'landing') {
+      pendingScroll.current = id;
       setView('landing');
-      setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      }, 100);
       return;
     }
 
@@ -76,6 +113,10 @@ export default function App() {
     setIsInterviewOpen(true);
   };
 
+  if (isResumeGeneratorLocation()) {
+    return <ResumeGenerator />;
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-orange-500 selection:text-white">
       
@@ -90,8 +131,16 @@ export default function App() {
           selectedJobForInterview={selectedJobForInterview}
           setSelectedJobForInterview={setSelectedJobForInterview}
           isFullPage={true}
-          onBackToHome={() => setView('landing')}
+          onBackToHome={() => {
+            pendingScroll.current = 'top';
+            setView('landing');
+          }}
         />
+      ) : currentView === 'curriculo' ? (
+        <ResumeIntro onBackToHome={() => {
+          pendingScroll.current = 'top';
+          setView('landing');
+        }} />
       ) : (
         <>
           {/* 1. Hero Block */}
@@ -107,23 +156,26 @@ export default function App() {
           <StatsCounter currentPersona={persona} />
 
           {persona === 'candidate' ? (
-            <>
-              {/* 2. Vagas em Destaque Section */}
-              <Jobs 
-                currentPersona={persona}
-                isInterviewOpen={isInterviewOpen}
-                setIsInterviewOpen={setIsInterviewOpen}
-                selectedJobForInterview={selectedJobForInterview}
-                setSelectedJobForInterview={setSelectedJobForInterview}
-                onViewAllJobs={() => scrollToSection('jobs-page')}
+            <div className="relative">
+              <div
+                className="absolute inset-0 pointer-events-none bg-no-repeat bg-cover bg-center"
+                style={{ backgroundImage: `url("${lacosBg}")` }}
               />
-
-              {/* 3. Sobre Nós Section */}
-              <AboutUs currentPersona={persona} openLeadModal={openLeadModal} />
-
-              {/* 5. Depoimentos Grid Section */}
-              <Testimonials currentPersona={persona} scrollToSection={scrollToSection} openLeadModal={openLeadModal} />
-            </>
+              <div className="absolute inset-0 bg-white/65 pointer-events-none" />
+              <div className="relative">
+                <Jobs
+                  currentPersona={persona}
+                  isInterviewOpen={isInterviewOpen}
+                  setIsInterviewOpen={setIsInterviewOpen}
+                  selectedJobForInterview={selectedJobForInterview}
+                  setSelectedJobForInterview={setSelectedJobForInterview}
+                  onViewAllJobs={() => scrollToSection('jobs-page')}
+                  hideBackground
+                />
+                <AboutUs currentPersona={persona} openLeadModal={openLeadModal} />
+                <Testimonials currentPersona={persona} scrollToSection={scrollToSection} openLeadModal={openLeadModal} hideBackground />
+              </div>
+            </div>
           ) : (
             <>
               {/* 3. Sobre Nós Section */}

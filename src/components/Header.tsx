@@ -82,6 +82,18 @@ export const Header: React.FC<HeaderProps> = ({ currentPersona, setPersona, scro
                 {item.label}
               </button>
             ))}
+            {currentPersona === 'candidate' && (
+              <button
+                type="button"
+                onClick={() => {
+                  scrollToSection('resume-page');
+                  setIsOpen(false);
+                }}
+                className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-[#1D1E4C] rounded-lg hover:bg-slate-50 transition-all duration-200"
+              >
+                Currículo
+              </button>
+            )}
           </nav>
 
           {/* Action Area & Persona Toggle (Desktop) */}
@@ -214,6 +226,18 @@ export const Header: React.FC<HeaderProps> = ({ currentPersona, setPersona, scro
                 {item.label}
               </button>
             ))}
+            {currentPersona === 'candidate' && (
+              <button
+                type="button"
+                onClick={() => {
+                  scrollToSection('resume-page');
+                  setIsOpen(false);
+                }}
+                className="block w-full text-left px-3 py-2.5 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-[#1D1E4C] transition-colors"
+              >
+                Currículo
+              </button>
+            )}
 
             <div className="border-t border-slate-100 pt-4">
               <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-3 pb-2">

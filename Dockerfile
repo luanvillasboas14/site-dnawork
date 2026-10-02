@@ -15,30 +15,17 @@ ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
 
 RUN npm run build
 
+FROM node:20-alpine
 
-FROM nginx:alpine
+WORKDIR /app
 
-COPY --from=frontend-builder /app/dist /usr/share/nginx/html
+COPY package*.json ./
+RUN npm install --omit=dev
 
-RUN printf 'server {\n\
-    listen 3000;\n\
-    server_name _;\n\
-    root /usr/share/nginx/html;\n\
-    index index.html;\n\
-    location = /favicon.ico {\n\
-        default_type image/x-icon;\n\
-        add_header Cache-Control "public, max-age=86400";\n\
-        try_files /favicon.ico =404;\n\
-    }\n\
-    location ~* \\.(png|ico)$ {\n\
-        add_header Cache-Control "public, max-age=86400";\n\
-        try_files $uri =404;\n\
-    }\n\
-    location / {\n\
-        try_files $uri $uri/ /index.html;\n\
-    }\n\
-}\n' > /etc/nginx/conf.d/default.conf
+COPY --from=frontend-builder /app/dist ./dist
+COPY server ./server
 
+ENV NODE_ENV=production
 EXPOSE 3000
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "server/index.mjs"]

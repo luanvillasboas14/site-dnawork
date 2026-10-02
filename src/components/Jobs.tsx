@@ -15,6 +15,7 @@ interface JobsProps {
   isFullPage?: boolean;
   onBackToHome?: () => void;
   onViewAllJobs?: () => void;
+  hideBackground?: boolean;
 }
 
 export const Jobs: React.FC<JobsProps> = ({ 
@@ -25,7 +26,8 @@ export const Jobs: React.FC<JobsProps> = ({
   setSelectedJobForInterview,
   isFullPage = false,
   onBackToHome,
-  onViewAllJobs
+  onViewAllJobs,
+  hideBackground = false
 }) => {
   const [jobs, setJobs] = useState<Job[]>(INITIAL_JOBS);
   const [isLoadingSupabase, setIsLoadingSupabase] = useState<boolean>(true);
@@ -192,15 +194,18 @@ export const Jobs: React.FC<JobsProps> = ({
   return (
     <section 
       id={isFullPage ? "jobs-page" : "jobs-section"} 
-      className={`relative overflow-hidden bg-cover bg-center bg-no-repeat px-4 sm:px-6 lg:px-8 ${
+      className={`relative px-4 sm:px-6 lg:px-8 ${
+        hideBackground ? 'overflow-visible' : 'overflow-hidden bg-cover bg-center bg-no-repeat'
+      } ${
         isFullPage ? 'py-12 md:py-20 min-h-screen' : 'pt-8 pb-8 md:pt-12 md:pb-12'
       }`}
-      style={{
-        backgroundImage: `url("${lacosBg}")`
+      style={hideBackground ? { overflowAnchor: 'none' } : {
+        backgroundImage: `url("${lacosBg}")`,
+        backgroundAttachment: isFullPage ? 'fixed' : 'scroll',
+        overflowAnchor: 'none',
       }}
     >
-      {/* Light subtle overlay to enhance background visibility while maintaining readability */}
-      <div className="absolute inset-0 bg-white/65 pointer-events-none z-0" />
+      {!hideBackground && <div className="absolute inset-0 bg-white/65 pointer-events-none z-0" />}
 
       <div className="max-w-7xl mx-auto relative z-10">
         
