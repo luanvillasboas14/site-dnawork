@@ -17,8 +17,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPersona, setPersona, scro
   const loginDropdownRef = useRef<HTMLDivElement>(null);
 
   const loginUrls = {
-    company: 'https://sistema.dnawork.ai/Empresa/index.php',
-    candidate: 'https://sistema.dnawork.ai/Candidato/index.php',
+    company: 'https://empresas.dnawork.ai/login',
+    candidate: 'https://empresas.dnawork.ai/ponto/login',
   };
 
   const toggleMenu = () => setIsOpen(!isOpen);
