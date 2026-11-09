@@ -4,7 +4,7 @@ import { INITIAL_JOBS } from '../data';
 import { Job, Message } from '../types';
 import { supabase } from '../lib/supabase';
 // @ts-ignore
-import lacosBg from '../assets/images/Laços (1).png';
+import lacosBg from '../assets/images/lcp-lacos.webp';
 
 interface JobsProps {
   currentPersona: 'candidate' | 'company';
@@ -258,7 +258,7 @@ export const Jobs: React.FC<JobsProps> = ({
                 <Filter size={16} className="text-[#FF7A08]" />
                 <span>Filtros de Busca</span>
                 {(searchQuery || activeFilter !== 'Todos' || selectedModality !== 'Todos' || selectedType !== 'Todos') && (
-                  <span className="px-2 py-0.5 text-[10px] bg-[#FF7A08] text-white rounded-full font-bold">
+                  <span className="px-2 py-0.5 text-[10px] bg-[#c2410c] text-white rounded-full font-bold">
                     Ativo
                   </span>
                 )}
@@ -448,9 +448,9 @@ export const Jobs: React.FC<JobsProps> = ({
 
               {/* Title & Company */}
               <div className="mb-4">
-                <h4 className="text-base font-bold text-[#1D1E4C] group-hover:text-[#FF7A08] transition-colors leading-tight">
+                <h3 className="text-base font-bold text-[#1D1E4C] group-hover:text-[#c2410c] transition-colors leading-tight">
                   {job.title}
-                </h4>
+                </h3>
                 <p className="text-[11px] text-gray-500 line-clamp-1 mt-1">
                   {job.company} • {job.location}
                 </p>
@@ -459,14 +459,14 @@ export const Jobs: React.FC<JobsProps> = ({
               {/* Info Block */}
               <div className="space-y-2.5 py-4 border-t border-b border-slate-100 mb-5 text-sm text-slate-600">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Salário</span>
-                  <span className="text-[#FF7A08] font-bold text-sm">{job.salary}</span>
+                  <span className="text-xs font-bold text-slate-600 uppercase tracking-widest">Salário</span>
+                  <span className="text-[#c2410c] font-bold text-sm">{job.salary}</span>
                 </div>
               </div>
 
               {/* Benefits */}
               <div className="mb-6 flex-1">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2.5">Benefícios inclusos:</p>
+                <p className="text-xs font-bold text-slate-600 uppercase tracking-widest mb-2.5">Benefícios inclusos:</p>
                 <div className="flex flex-wrap gap-1.5">
                   {job.benefits.map((benefit, bIdx) => (
                     <span 
@@ -508,7 +508,7 @@ export const Jobs: React.FC<JobsProps> = ({
           <div className="text-center mt-12">
             <button
               onClick={onViewAllJobs}
-              className="px-8 py-3.5 bg-[#FF7A08] hover:bg-[#e66c00] text-white text-xs font-bold rounded-full transition-all shadow-md shadow-orange-500/10 hover:shadow-orange-500/20 active:translate-y-px cursor-pointer"
+              className="px-8 py-3.5 bg-[#c2410c] hover:bg-[#9a3412] text-white text-xs font-bold rounded-full transition-all shadow-md shadow-orange-500/10 hover:shadow-orange-500/20 active:translate-y-px cursor-pointer"
             >
               Ver mais vagas
             </button>

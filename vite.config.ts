@@ -40,9 +40,39 @@ function resumeLeadApi() {
   };
 }
 
+function pagespeedBuild() {
+  return {
+    name: 'pagespeed-build',
+    apply: 'build' as const,
+    transformIndexHtml: {
+      order: 'post' as const,
+      handler(html, ctx) {
+        const bundle = ctx.bundle;
+        if (!bundle) return html;
+        let out = html;
+        for (const fileName of Object.keys(bundle)) {
+          if (!/banner-candidate-mobile-[^/]+\.webp$/.test(fileName)) continue;
+          out = out.replace(
+            '</head>',
+            `<link rel="preload" as="image" href="/${fileName}" type="image/webp" fetchpriority="high" media="(max-width: 767px)"></head>`,
+          );
+        }
+        out = out.replace(/<link rel="stylesheet"[^>]*href="([^"]+\.css)"[^>]*>/g, (full, href) => {
+          const asset = bundle[String(href).replace(/^\//, '')];
+          if (!asset || asset.type !== 'asset') return full;
+          const css = typeof asset.source === 'string' ? asset.source : Buffer.from(asset.source).toString('utf8');
+          delete bundle[String(href).replace(/^\//, '')];
+          return `<style>${css}</style>`;
+        });
+        return out;
+      },
+    },
+  };
+}
+
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss(), resumeLeadApi()],
+    plugins: [react(), tailwindcss(), resumeLeadApi(), pagespeedBuild()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

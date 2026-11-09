@@ -1,6 +1,6 @@
 import { ResumeDraft } from './types';
 // @ts-ignore
-import logoFinal from '../../assets/images/Logo Final (1).png';
+import logoFinal from '../../assets/images/logo.webp';
 
 type Props = {
   data: ResumeDraft;

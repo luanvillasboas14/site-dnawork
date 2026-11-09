@@ -1,0 +1,16 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:air:dnawork.ai:site",
+      "displayName": "DNA Work",
+      "type": "text/html",
+      "url": "https://dnawork.ai/",
+      "description": "Entrevistas de estágio pelo WhatsApp e triagem de jovens talentos com a inteligência artificial THEO.",
+      "representativeQueries": [
+        "vagas de estágio para jovens",
+        "entrevista de emprego pelo WhatsApp",
+        "recrutar estagiários com inteligência artificial"
+      ]
+    }
+  ]
+}

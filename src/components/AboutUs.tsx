@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Sparkles, CheckCircle, Zap, Shield, HelpCircle, MessageSquare, ChevronLeft, ChevronRight, ArrowRight, ChevronDown } from 'lucide-react';
 import { DecorativeShape } from './DecorativeShapes';
 // @ts-ignore
-import dnaWorkTeam from '../assets/images/tes quem somos.png';
+import dnaWorkTeam from '../assets/images/team.webp';
 // @ts-ignore
-import theoRobot from '../assets/images/Lobo_Showing.png';
+import theoRobot from '../assets/images/theo-mascot.webp';
 
 interface AboutUsProps {
   currentPersona?: 'candidate' | 'company';
@@ -53,7 +53,7 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
-          <span className="text-[#FF7A08] text-xs font-bold uppercase tracking-widest bg-orange-50 px-3 py-1 rounded-full">
+          <span className="text-[#c2410c] text-xs font-bold uppercase tracking-widest bg-orange-50 px-3 py-1 rounded-full">
             Conheça a DNA Work
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#1D1E4C] mt-2 tracking-tight">
@@ -76,6 +76,10 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
               <img
                 src={dnaWorkTeam}
                 alt="DNA Work Team collaborating in a modern colorful office"
+                width={600}
+                height={500}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-auto object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-102"
                 referrerPolicy="no-referrer"
               />
@@ -115,7 +119,7 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
             {/* Left Side: Title and Feature Grid */}
             <div className="lg:col-span-8 space-y-4">
               <div className="space-y-2">
-                <span className="inline-flex items-center gap-1 px-3 py-0.5 rounded-full text-[10px] font-bold tracking-widest uppercase bg-[#FF7A08] text-white">
+                <span className="inline-flex items-center gap-1 px-3 py-0.5 rounded-full text-[10px] font-bold tracking-widest uppercase bg-[#c2410c] text-white">
                   Inteligência Artificial Integrada
                 </span>
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-[#1D1E4C]">
@@ -136,7 +140,7 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
                           <div className={`w-8 h-8 rounded-lg ${feature.colorBg} flex items-center justify-center mb-2`}>
                             {feature.icon}
                           </div>
-                          <h5 className="font-bold text-sm text-[#1D1E4C]">{feature.title}</h5>
+                          <h4 className="font-bold text-sm text-[#1D1E4C]">{feature.title}</h4>
                           <p className="text-[11px] text-slate-700 mt-1 leading-relaxed font-semibold">{feature.desc}</p>
                         </div>
                       </div>
@@ -149,7 +153,7 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
                   <button
                     onClick={() => setTheoMobileIndex(prev => (prev === 0 ? theoFeatures.length - 1 : prev - 1))}
                     aria-label="Anterior"
-                    className="w-7 h-7 rounded-full bg-white/80 border border-[#1D1E4C]/10 text-[#1D1E4C] flex items-center justify-center shadow-sm active:scale-95 transition-all cursor-pointer"
+                    className="w-8 h-8 rounded-full bg-white/80 border border-[#1D1E4C]/10 text-[#1D1E4C] flex items-center justify-center shadow-sm active:scale-95 transition-all cursor-pointer"
                   >
                     <ChevronLeft size={16} />
                   </button>
@@ -160,19 +164,23 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
                         key={idx}
                         onClick={() => setTheoMobileIndex(idx)}
                         aria-label={`Ir para item ${idx + 1}`}
-                        className={`h-2 rounded-full transition-all cursor-pointer ${
-                          idx === theoMobileIndex 
-                            ? 'w-5 bg-[#FF7A08]' 
-                            : 'w-2 bg-[#1D1E4C]/20'
-                        }`}
-                      />
+                        className="inline-flex h-6 w-6 items-center justify-center"
+                      >
+                        <span
+                          className={`block h-2 rounded-full ${
+                            idx === theoMobileIndex
+                              ? 'w-5 bg-[#c2410c]'
+                              : 'w-2 bg-[#1D1E4C]/20'
+                          }`}
+                        />
+                      </button>
                     ))}
                   </div>
 
                   <button
                     onClick={() => setTheoMobileIndex(prev => (prev === theoFeatures.length - 1 ? 0 : prev + 1))}
                     aria-label="Próximo"
-                    className="w-7 h-7 rounded-full bg-white/80 border border-[#1D1E4C]/10 text-[#1D1E4C] flex items-center justify-center shadow-sm active:scale-95 transition-all cursor-pointer"
+                    className="w-8 h-8 rounded-full bg-white/80 border border-[#1D1E4C]/10 text-[#1D1E4C] flex items-center justify-center shadow-sm active:scale-95 transition-all cursor-pointer"
                   >
                     <ChevronRight size={16} />
                   </button>
@@ -186,7 +194,7 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
                     <div className={`w-8 h-8 rounded-lg ${feature.colorBg} flex items-center justify-center mb-2`}>
                       {feature.icon}
                     </div>
-                    <h5 className="font-bold text-sm text-[#1D1E4C]">{feature.title}</h5>
+                    <h4 className="font-bold text-sm text-[#1D1E4C]">{feature.title}</h4>
                     <p className="text-[11px] text-slate-700 mt-1 leading-relaxed font-semibold">{feature.desc}</p>
                   </div>
                 ))}
@@ -198,6 +206,10 @@ export const AboutUs: React.FC<AboutUsProps> = ({ currentPersona, openLeadModal 
               <img 
                 src={theoRobot} 
                 alt="Mascote THEO" 
+                width={560}
+                height={747}
+                loading="lazy"
+                decoding="async"
                 className="w-full max-w-[220px] sm:max-w-[250px] lg:max-w-[280px] h-auto object-contain transform hover:scale-105 transition-transform duration-300"
                 referrerPolicy="no-referrer"
               />
