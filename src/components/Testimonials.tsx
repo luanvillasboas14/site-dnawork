@@ -4,7 +4,7 @@ import { TESTIMONIALS } from '../data';
 import { Testimonial } from '../types';
 import { DecorativeShape } from './DecorativeShapes';
 // @ts-ignore
-import lacosBg from '../assets/images/Laços (1).png';
+import lacosBg from '../assets/images/lcp-lacos.webp';
 
 interface TestimonialsProps {
   currentPersona: 'candidate' | 'company';
@@ -93,7 +93,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ currentPersona, scro
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
-          <span className="text-[#FF7A08] text-xs font-bold uppercase tracking-widest bg-orange-50 px-3 py-1 rounded-full">
+          <span className="text-[#c2410c] text-xs font-bold uppercase tracking-widest bg-orange-50 px-3 py-1 rounded-full">
             Depoimentos e Prova Social
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#1D1E4C] mt-2 tracking-tight">
@@ -112,8 +112,8 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ currentPersona, scro
               }}
               className={`flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-bold transition-all ${
                 activeTab === 'candidate'
-                  ? 'bg-[#FF7A08] text-white shadow-md'
-                  : 'text-slate-500 hover:text-slate-800'
+                  ? 'bg-[#c2410c] text-white shadow-md'
+                  : 'text-slate-600 hover:text-slate-800'
               }`}
             >
               <Heart size={14} />
@@ -127,7 +127,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ currentPersona, scro
               className={`flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-bold transition-all ${
                 activeTab === 'company'
                   ? 'bg-[#1D1E4C] text-white shadow-md'
-                  : 'text-slate-500 hover:text-slate-800'
+                  : 'text-slate-600 hover:text-slate-800'
               }`}
             >
               <UserCheck size={14} />
@@ -167,11 +167,11 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ currentPersona, scro
                     {/* Profile Details */}
                     <div className="border-t border-slate-200/60 pt-3 mt-auto">
                       <div className="text-left">
-                        <h4 className="font-black text-xs sm:text-sm text-[#1D1E4C]">{testimonial.name}</h4>
-                        <p className="text-[11px] sm:text-xs font-semibold text-slate-400 mt-0.5">
+                        <p className="font-black text-xs sm:text-sm text-[#1D1E4C]">{testimonial.name}</p>
+                        <p className="text-[11px] sm:text-xs font-semibold text-slate-600 mt-0.5">
                           {testimonial.role}
                           {testimonial.company && (
-                            <span className="text-[#FF7A08] font-bold block">
+                            <span className="text-[#c2410c] font-bold block">
                               {testimonial.company}
                             </span>
                           )}
@@ -201,12 +201,16 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ currentPersona, scro
                   key={idx}
                   onClick={() => setMobileIndex(idx)}
                   aria-label={`Ir para depoimento ${idx + 1}`}
-                  className={`h-2 rounded-full transition-all ${
-                    idx === mobileIndex 
-                      ? 'w-6 bg-[#FF7A08]' 
-                      : 'w-2 bg-slate-300 hover:bg-slate-400'
-                  }`}
-                />
+                  className="inline-flex h-6 w-6 items-center justify-center"
+                >
+                  <span
+                    className={`block h-2 rounded-full ${
+                      idx === mobileIndex
+                        ? 'w-6 bg-[#c2410c]'
+                        : 'w-2 bg-slate-300'
+                    }`}
+                  />
+                </button>
               ))}
             </div>
 
@@ -245,11 +249,11 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ currentPersona, scro
               {/* Profile Details */}
               <div className="border-t border-slate-200/60 pt-3 mt-auto">
                 <div className="text-left">
-                  <h4 className="font-black text-xs sm:text-sm text-[#1D1E4C]">{testimonial.name}</h4>
-                  <p className="text-[11px] sm:text-xs font-semibold text-slate-400 mt-0.5">
+                  <p className="font-black text-xs sm:text-sm text-[#1D1E4C]">{testimonial.name}</p>
+                  <p className="text-[11px] sm:text-xs font-semibold text-slate-600 mt-0.5">
                     {testimonial.role}
                     {testimonial.company && (
-                      <span className="text-[#FF7A08] font-bold block sm:inline sm:before:content-['•'] sm:before:mx-1">
+                      <span className="text-[#c2410c] font-bold block sm:inline sm:before:content-['•'] sm:before:mx-1">
                         {testimonial.company}
                       </span>
                     )}
@@ -267,7 +271,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ currentPersona, scro
               <Sparkles size={20} className="animate-pulse" />
             </div>
             <div>
-              <h4 className="font-black text-[#1D1E4C] text-sm md:text-base">Gostou das histórias de sucesso?</h4>
+              <h3 className="font-black text-[#1D1E4C] text-sm md:text-base">Gostou das histórias de sucesso?</h3>
               <p className="text-xs text-slate-500 mt-0.5">Sua empresa ou carreira também podem atingir estes resultados em poucos dias.</p>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Menu, X, Sparkles, Briefcase, User, ChevronDown } from 'lucide-react';
 // @ts-ignore
-import logoFinal from '../assets/images/Logo Final (1).png';
+import logoFinal from '../assets/images/logo.webp';
 
 interface HeaderProps {
   currentPersona: 'candidate' | 'company';
@@ -17,8 +17,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPersona, setPersona, scro
   const loginDropdownRef = useRef<HTMLDivElement>(null);
 
   const loginUrls = {
-    company: 'https://sistema.dnawork.ai/Empresa/index.php',
-    candidate: 'https://sistema.dnawork.ai/Candidato/index.php',
+    company: 'https://empresas.dnawork.ai/login',
+    candidate: 'https://empresas.dnawork.ai/ponto/login',
   };
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -63,6 +63,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPersona, setPersona, scro
             <img 
               src={logoFinal} 
               alt="DNA Work" 
+              width={320}
+              height={81}
               className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-102"
               referrerPolicy="no-referrer"
             />
@@ -188,7 +190,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPersona, setPersona, scro
               onClick={() => setPersona(currentPersona === 'candidate' ? 'company' : 'candidate')}
               className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold border transition-all ${
                 currentPersona === 'candidate'
-                  ? 'bg-orange-50 border-orange-200 text-[#FF7A08]'
+                  ? 'bg-orange-50 border-orange-200 text-[#c2410c]'
                   : 'bg-indigo-50 border-indigo-100 text-[#1D1E4C]'
               }`}
             >

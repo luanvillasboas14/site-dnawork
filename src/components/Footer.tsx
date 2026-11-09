@@ -1,7 +1,7 @@
 import React from 'react';
 import { Instagram, Facebook, Linkedin, Phone, MessageSquare, Shield, HelpCircle, ArrowUp } from 'lucide-react';
 // @ts-ignore
-import logoBranco from '../assets/images/Logo_Branco.png';
+import logoBranco from '../assets/images/logo-white.webp';
 
 interface FooterProps {
   scrollToSection: (id: string) => void;
@@ -21,6 +21,10 @@ export const Footer: React.FC<FooterProps> = ({ scrollToSection, currentPersona 
               <img 
                 src={logoBranco} 
                 alt="DNA Work" 
+                width={288}
+                height={72}
+                loading="lazy"
+                decoding="async"
                 className="h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                 referrerPolicy="no-referrer"
               />
@@ -60,32 +64,32 @@ export const Footer: React.FC<FooterProps> = ({ scrollToSection, currentPersona 
 
           {/* Column 2: Navigation Links */}
           <div className="lg:col-span-3 flex flex-col space-y-2">
-            <h4 className="text-white font-extrabold text-xs uppercase tracking-widest border-l-2 border-[#FF7A08] pl-2.5">
+            <h3 className="text-white font-extrabold text-xs uppercase tracking-widest border-l-2 border-[#FF7A08] pl-2.5">
               Navegação
-            </h4>
+            </h3>
             <div className="flex flex-col space-y-1 text-xs font-semibold">
               <button 
                 onClick={() => scrollToSection('hero')} 
-                className="hover:text-[#FF7A08] text-slate-400 transition-colors text-left"
+                className="hover:text-[#FF7A08] text-slate-300 transition-colors text-left py-1 min-h-6"
               >
                 Página Inicial / THEO IA
               </button>
               <button 
                 onClick={() => scrollToSection('about-section')} 
-                className="hover:text-[#FF7A08] text-slate-400 transition-colors text-left"
+                className="hover:text-[#FF7A08] text-slate-300 transition-colors text-left py-1 min-h-6"
               >
                 Sobre Nós & Propósito
               </button>
               <button 
                 onClick={() => scrollToSection('jobs-page')} 
-                className="hover:text-[#FF7A08] text-slate-400 transition-colors text-left"
+                className="hover:text-[#FF7A08] text-slate-300 transition-colors text-left py-1 min-h-6"
               >
                 Vagas
               </button>
               {currentPersona === 'company' && (
                 <button 
                   onClick={() => scrollToSection('simulator-section')} 
-                  className="hover:text-[#FF7A08] text-slate-400 transition-colors text-left"
+                  className="hover:text-[#FF7A08] text-slate-300 transition-colors text-left py-1 min-h-6"
                 >
                   Simular Economia (B2B)
                 </button>
@@ -95,9 +99,9 @@ export const Footer: React.FC<FooterProps> = ({ scrollToSection, currentPersona 
 
           {/* Column 3: Contacts separated for candidate and company */}
           <div className="lg:col-span-5 flex flex-col space-y-2">
-            <h4 className="text-white font-extrabold text-xs uppercase tracking-widest border-l-2 border-[#FF7A08] pl-2.5">
+            <h3 className="text-white font-extrabold text-xs uppercase tracking-widest border-l-2 border-[#FF7A08] pl-2.5">
               Canais de Contato
-            </h4>
+            </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {/* Candidates contact */}
@@ -106,17 +110,17 @@ export const Footer: React.FC<FooterProps> = ({ scrollToSection, currentPersona 
                   <span className="w-2 h-2 rounded-full bg-orange-400"></span>
                   Sou Candidato
                 </p>
-                <div className="flex flex-col space-y-1 text-xs text-slate-400 font-semibold">
+                <div className="flex flex-col text-xs text-slate-300 font-semibold">
                   <a 
                     href="https://api.whatsapp.com/send/?phone=5511947637367&text=Ol%C3%A1!%20Quero%20iniciar%20minha%20entrevista%20com%20o%20THEO.&type=phone_number&app_absent=0" 
                     target="_blank" 
                     rel="noreferrer" 
-                    className="flex items-center gap-2 hover:text-[#FF7A08] transition-colors"
+                    className="flex items-center gap-2 hover:text-[#FF7A08] transition-colors py-1"
                   >
                     <MessageSquare size={13} className="text-green-400" />
                     Iniciar Entrevista (WhatsApp)
                   </a>
-                  <span className="text-[10px] text-slate-500 block">Disponível 24h para entrevistas</span>
+                    <span className="text-[10px] text-slate-300 block py-1">Disponível 24h para entrevistas</span>
                 </div>
               </div>
 
@@ -126,12 +130,12 @@ export const Footer: React.FC<FooterProps> = ({ scrollToSection, currentPersona 
                   <span className="w-2 h-2 rounded-full bg-indigo-400"></span>
                   Sou Empresa (B2B)
                 </p>
-                <div className="flex flex-col space-y-1 text-xs text-slate-400 font-semibold">
+                <div className="flex flex-col text-xs text-slate-300 font-semibold">
                   <a 
                     href="https://api.whatsapp.com/send/?phone=5511932131004&text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20DNA%20Work%20para%20empresas.&type=phone_number&app_absent=0" 
                     target="_blank" 
                     rel="noreferrer" 
-                    className="flex items-center gap-2 hover:text-[#FF7A08] transition-colors"
+                    className="flex items-center gap-2 hover:text-[#FF7A08] transition-colors py-1"
                   >
                     <MessageSquare size={13} className="text-green-400" />
                     Suporte Comercial
@@ -144,13 +148,13 @@ export const Footer: React.FC<FooterProps> = ({ scrollToSection, currentPersona 
         </div>
 
         {/* Footer Bottom info */}
-        <div className="flex flex-col sm:flex-row items-center justify-between pt-3 text-xs text-slate-500 font-semibold">
+        <div className="flex flex-col sm:flex-row items-center justify-between pt-3 text-xs text-slate-300 font-semibold">
           <p>© 2026 DNA Work. Todos os direitos reservados.</p>
           <div className="flex items-center gap-6 mt-1.5 sm:mt-0">
-            <a href="#politica" className="hover:text-white transition-colors flex items-center gap-1">
+            <a href="#politica" className="hover:text-white transition-colors flex items-center gap-1 py-1">
               <Shield size={12} /> Política de Privacidade
             </a>
-            <a href="#termos" className="hover:text-white transition-colors">Termos de Uso</a>
+            <a href="#termos" className="hover:text-white transition-colors py-1">Termos de Uso</a>
           </div>
         </div>
 

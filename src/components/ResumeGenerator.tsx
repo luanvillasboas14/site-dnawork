@@ -2,13 +2,13 @@ import { ArrowLeft } from 'lucide-react';
 import { isResumeFormLocation, mainSiteHref, resumeFormHref } from '../lib/resumeSite';
 import { ResumeWizard } from './resume/ResumeWizard';
 // @ts-ignore
-import logoFinal from '../assets/images/Logo Final (1).png';
+import logoFinal from '../assets/images/logo.webp';
 // @ts-ignore
-import lacosBg from '../assets/images/Laços (1).png';
+import lacosBg from '../assets/images/lcp-lacos.webp';
 // @ts-ignore
-import theoRobot from '../assets/images/Lobo_Showing.png';
+import theoRobot from '../assets/images/theo-mascot.webp';
 // @ts-ignore
-import resumePhoto from '../assets/images/curriculo-dna.png';
+import resumePhoto from '../assets/images/resume-photo.webp';
 
 const reasons = [
   {

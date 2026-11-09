@@ -4,13 +4,13 @@ import { DecorativeShape } from './DecorativeShapes';
 import { CHAT_FLOWS } from '../data';
 import { Message } from '../types';
 // @ts-ignore
-import candidateBannerBg from '../assets/images/Banner_candidato 2.png';
+import candidateBannerBg from '../assets/images/banner-candidate.webp';
 // @ts-ignore
-import candidateBannerMobileBg from '../assets/images/Banner_candidato mobile.png';
+import candidateBannerMobileBg from '../assets/images/banner-candidate-mobile.webp';
 // @ts-ignore
-import companyBannerBg from '../assets/images/Banner_empresa.png';
+import companyBannerBg from '../assets/images/banner-company.webp';
 // @ts-ignore
-import companyBannerMobileBg from '../assets/images/Banner_empressas mobile.png';
+import companyBannerMobileBg from '../assets/images/banner-company-mobile.webp';
 
 interface HeroProps {
   persona: 'candidate' | 'company';
@@ -130,26 +130,27 @@ export const Hero: React.FC<HeroProps> = ({ persona, setPersona, openInterviewMo
 
   const currentContent = heroContent[persona];
 
+  const desktopBanner = persona === 'candidate' ? candidateBannerBg : companyBannerBg;
+  const mobileBanner = persona === 'candidate' ? candidateBannerMobileBg : companyBannerMobileBg;
+
   return (
     <>
-      <style>{`
-        .hero-banner-responsive {
-          background-image: var(--bg-mobile);
-        }
-        @media (min-width: 768px) {
-          .hero-banner-responsive {
-            background-image: var(--bg-desktop);
-          }
-        }
-      `}</style>
       <section 
         id="hero" 
-        className="hero-banner-responsive relative overflow-hidden transition-all duration-300 bg-cover bg-center bg-no-repeat min-h-[350px] sm:min-h-[420px] lg:min-h-[calc(100vh-104px)] lg:max-h-[540px] pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 flex items-center px-4 sm:px-6 lg:px-8"
-        style={{
-          '--bg-desktop': `url("${persona === 'candidate' ? candidateBannerBg : companyBannerBg}")`,
-          '--bg-mobile': `url("${persona === 'candidate' ? candidateBannerMobileBg : companyBannerMobileBg}")`
-        } as React.CSSProperties}
+        className="relative overflow-hidden transition-all duration-300 bg-[#FF7A08] min-h-[350px] sm:min-h-[420px] lg:min-h-[calc(100vh-104px)] lg:max-h-[540px] pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 flex items-center px-4 sm:px-6 lg:px-8"
       >
+      <picture className="absolute inset-0 z-0">
+        <source media="(min-width: 768px)" srcSet={desktopBanner} />
+        <img
+          src={mobileBanner}
+          alt=""
+          width={900}
+          height={742}
+          fetchPriority="high"
+          decoding="async"
+          className="h-full w-full object-cover"
+        />
+      </picture>
       {/* Reduced overlay gradient to highlight the background banner image */}
       <div className={`absolute inset-0 pointer-events-none z-0 ${
         persona === 'company' 

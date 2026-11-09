@@ -3,9 +3,9 @@ import { mainSiteHref } from '../../lib/resumeSite';
 import { sendResumeLead } from '../../lib/resumeWebhook';
 import { ResumePreview } from './ResumePreview';
 // @ts-ignore
-import logoFinal from '../../assets/images/Logo Final (1).png';
+import logoFinal from '../../assets/images/logo.webp';
 // @ts-ignore
-import lacosBg from '../../assets/images/Laços (1).png';
+import lacosBg from '../../assets/images/lcp-lacos.webp';
 import { formatCep, formatDate, formatMonthYear, formatPhone, formatYear, maskDigits } from './resumeMasks';
 import { stepError } from './resumeRules';
 import { BASIC_STATUS, COLORS, EDUCATION_LEVELS, HIGHER_STATUS, LANGUAGE_LEVELS, MODELS, SAMPLE_RESUME, SKILL_GROUPS, STATES, isBasicLevel } from './sampleResume';

@@ -1,20 +1,22 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { lazy, Suspense, useLayoutEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { StatsCounter } from './components/StatsCounter';
 import { AboutUs } from './components/AboutUs';
 import { Jobs } from './components/Jobs';
-import { ROISimulator } from './components/ROISimulator';
 import { Testimonials } from './components/Testimonials';
 import { Footer } from './components/Footer';
 import { FloatingButtons } from './components/FloatingButtons';
-import { LeadFormModal } from './components/LeadFormModal';
-import { ResumeGenerator, ResumeIntro } from './components/ResumeGenerator';
 import { isResumeGeneratorLocation } from './lib/resumeSite';
 import { Job } from './types';
 // @ts-ignore
-import lacosBg from './assets/images/Laços (1).png';
+import lacosBg from './assets/images/lcp-lacos.webp';
+
+const ResumeIntro = lazy(() => import('./components/ResumeGenerator').then((m) => ({ default: m.ResumeIntro })));
+const ResumeGenerator = lazy(() => import('./components/ResumeGenerator').then((m) => ({ default: m.ResumeGenerator })));
+const ROISimulator = lazy(() => import('./components/ROISimulator').then((m) => ({ default: m.ROISimulator })));
+const LeadFormModal = lazy(() => import('./components/LeadFormModal').then((m) => ({ default: m.LeadFormModal })));
 
 export default function App() {
   const [persona, setPersona] = useState<'candidate' | 'company'>('candidate');
@@ -114,7 +116,11 @@ export default function App() {
   };
 
   if (isResumeGeneratorLocation()) {
-    return <ResumeGenerator />;
+    return (
+      <Suspense fallback={<div className="min-h-screen bg-slate-50" />}>
+        <ResumeGenerator />
+      </Suspense>
+    );
   }
 
   return (
@@ -123,6 +129,7 @@ export default function App() {
       {/* Sticky Header */}
       <Header currentPersona={persona} setPersona={handleSetPersona} scrollToSection={scrollToSection} />
 
+      <main>
       {currentView === 'vagas' ? (
         <Jobs 
           currentPersona={persona}
@@ -137,10 +144,12 @@ export default function App() {
           }}
         />
       ) : currentView === 'curriculo' ? (
-        <ResumeIntro onBackToHome={() => {
-          pendingScroll.current = 'top';
-          setView('landing');
-        }} />
+        <Suspense fallback={<section className="min-h-screen bg-slate-50" />}>
+          <ResumeIntro onBackToHome={() => {
+            pendingScroll.current = 'top';
+            setView('landing');
+          }} />
+        </Suspense>
       ) : (
         <>
           {/* 1. Hero Block */}
@@ -157,10 +166,16 @@ export default function App() {
 
           {persona === 'candidate' ? (
             <div className="relative">
-              <div
-                className="absolute inset-0 pointer-events-none bg-no-repeat bg-cover bg-center"
-                style={{ backgroundImage: `url("${lacosBg}")` }}
-              />
+              <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+                <img
+                  src={lacosBg}
+                  alt=""
+                  width={960}
+                  height={752}
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </div>
               <div className="absolute inset-0 bg-white/65 pointer-events-none" />
               <div className="relative">
                 <Jobs
@@ -182,7 +197,9 @@ export default function App() {
               <AboutUs currentPersona={persona} openLeadModal={openLeadModal} />
 
               {/* 4. Simular Economia (B2B Return / ROI Calculator) */}
-              <ROISimulator openLeadModal={openLeadModal} />
+              <Suspense fallback={<section id="simulator-section" className="min-h-80" />}>
+                <ROISimulator openLeadModal={openLeadModal} />
+              </Suspense>
 
               {/* 5. Depoimentos Grid Section */}
               <Testimonials currentPersona={persona} scrollToSection={scrollToSection} openLeadModal={openLeadModal} />
@@ -190,6 +207,7 @@ export default function App() {
           )}
         </>
       )}
+      </main>
 
       {/* 6. Polished Footer */}
       <Footer scrollToSection={scrollToSection} currentPersona={persona} />
@@ -198,10 +216,14 @@ export default function App() {
       <FloatingButtons currentPersona={persona} />
 
       {/* B2B Company Lead Form Modal */}
-      <LeadFormModal 
-        isOpen={isLeadModalOpen} 
-        onClose={() => setIsLeadModalOpen(false)} 
-      />
+      {isLeadModalOpen && (
+        <Suspense fallback={null}>
+          <LeadFormModal
+            isOpen={isLeadModalOpen}
+            onClose={() => setIsLeadModalOpen(false)}
+          />
+        </Suspense>
+      )}
 
     </div>
   );

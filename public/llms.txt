@@ -1,0 +1,6 @@
+# DNA Work
+
+DNA Work conecta jovens de 16 a 25 anos a vagas de estágio e ajuda empresas a triar candidatos com a inteligência artificial THEO.
+
+- [Site](https://dnawork.ai/): entrevistas pelo WhatsApp e vagas abertas
+- [Gerador de currículo](https://curriculo.dnawork.ai/): currículo gratuito para candidatos
