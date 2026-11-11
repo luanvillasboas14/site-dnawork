@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { MapPin, Wallet, Briefcase, Tag, Filter, CheckCircle, Clock, Sparkles, Send, X, ArrowLeft, Search, ChevronDown } from 'lucide-react';
 import { INITIAL_JOBS } from '../data';
 import { Job, Message } from '../types';
-import { supabase } from '../lib/supabase';
 // @ts-ignore
 import lacosBg from '../assets/images/lcp-lacos.webp';
 
@@ -30,7 +29,7 @@ export const Jobs: React.FC<JobsProps> = ({
   hideBackground = false
 }) => {
   const [jobs, setJobs] = useState<Job[]>(INITIAL_JOBS);
-  const [isLoadingSupabase, setIsLoadingSupabase] = useState<boolean>(true);
+  const [isLoadingJobs, setIsLoadingJobs] = useState<boolean>(true);
   const [activeFilter, setActiveFilter] = useState<string>('Todos');
   const [visibleJobsCount, setVisibleJobsCount] = useState<number>(isFullPage ? 50 : 6);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState<boolean>(false);
@@ -40,13 +39,14 @@ export const Jobs: React.FC<JobsProps> = ({
   const [selectedModality, setSelectedModality] = useState<string>('Todos');
   const [selectedType, setSelectedType] = useState<string>('Todos');
 
-  // Fetch jobs from Supabase
+  // Fetch jobs from the site's server (/api/vagas reads the company database)
   useEffect(() => {
-    async function fetchJobsFromSupabase() {
+    async function fetchJobsFromServer() {
       try {
-        setIsLoadingSupabase(true);
-        const { data, error } = await supabase.from('jobs').select('*');
-        if (!error && data && data.length > 0) {
+        setIsLoadingJobs(true);
+        const response = await fetch('/api/vagas');
+        const data = response.ok ? await response.json() : null;
+        if (Array.isArray(data) && data.length > 0) {
           const mappedJobs: Job[] = data.map((item: any) => {
             // Map benefits string to array
             let parsedBenefits: string[] = [];
@@ -83,13 +83,13 @@ export const Jobs: React.FC<JobsProps> = ({
           setJobs(mappedJobs);
         }
       } catch (e) {
-        console.error("Failed to load jobs from Supabase:", e);
+        console.error("Failed to load jobs:", e);
       } finally {
-        setIsLoadingSupabase(false);
+        setIsLoadingJobs(false);
       }
     }
 
-    fetchJobsFromSupabase();
+    fetchJobsFromServer();
   }, []);
   
   // Custom Interview states

@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import { query } from './db.mjs';
 
-const BUCKET = 'curriculos';
 const PAGE_WIDTH = 595.28;
 const PAGE_HEIGHT = 841.89;
 
@@ -333,64 +333,40 @@ export async function renderResumePdf(draft) {
   return Buffer.from(await doc.save());
 }
 
-function supabaseConfig() {
-  const url = (process.env.SUPABASE_URL || '').trim().replace(/\/+$/, '');
-  const key = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();
-  if (!url || !key) throw new Error('O armazenamento do currículo ainda não está configurado.');
-  return { url, key };
+function sitePublicUrl() {
+  const url = (process.env.SITE_PUBLIC_URL || '').trim().replace(/\/+$/, '');
+  if (!url) throw new Error('O armazenamento do currículo ainda não está configurado.');
+  return url;
 }
 
-async function ensureBucket(url, key) {
-  const response = await fetch(`${url}/storage/v1/bucket`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${key}`,
-      apikey: key,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ id: BUCKET, name: BUCKET, public: true }),
-  });
-  if (response.ok || response.status === 409) return;
-  const text = await response.text();
-  if (/already exists/i.test(text)) return;
-  throw new Error('Não foi possível publicar o PDF do currículo.');
+// Stores an already-rendered PDF and returns its public link.
+export async function saveResumePdf({ name, phone, bytes }) {
+  const id = randomUUID();
+  const pdfUrl = `${sitePublicUrl()}/api/curriculos/${id}.pdf`;
+  try {
+    await query(
+      `INSERT INTO public.curriculos (id, nome, telefone, curriculo, arquivo, arquivo_tipo)
+       VALUES ($1, $2, $3, $4, $5, 'application/pdf')`,
+      [id, name, phone, pdfUrl, bytes],
+    );
+  } catch (error) {
+    console.error('[curriculos] falha ao salvar PDF:', error);
+    throw new Error('Não foi possível salvar o currículo no banco.');
+  }
+  return { id, pdfUrl };
 }
 
 export async function publishResumePdf({ name, phone, draft }) {
-  const { url, key } = supabaseConfig();
-  const id = randomUUID();
   const bytes = await renderResumePdf(draft);
-  await ensureBucket(url, key);
-
-  const upload = await fetch(`${url}/storage/v1/object/${BUCKET}/${id}.pdf`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${key}`,
-      apikey: key,
-      'Content-Type': 'application/pdf',
-      'x-upsert': 'true',
-    },
-    body: bytes,
-  });
-  if (!upload.ok) throw new Error('Não foi possível publicar o PDF do currículo.');
-
-  const pdfUrl = `${url}/storage/v1/object/public/${BUCKET}/${id}.pdf`;
-  const saved = await fetch(`${url}/rest/v1/curriculos`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${key}`,
-      apikey: key,
-      'Content-Type': 'application/json',
-      Prefer: 'return=minimal',
-    },
-    body: JSON.stringify({
-      id,
-      nome: name,
-      telefone: phone,
-      curriculo: pdfUrl,
-    }),
-  });
-  if (!saved.ok) throw new Error('Não foi possível salvar o currículo no banco.');
-
+  const { pdfUrl } = await saveResumePdf({ name, phone, bytes });
   return pdfUrl;
+}
+
+export async function readResumeFile(id) {
+  const { rows } = await query(
+    'SELECT arquivo, arquivo_tipo FROM public.curriculos WHERE id = $1',
+    [id],
+  );
+  if (!rows.length) return null;
+  return { bytes: rows[0].arquivo, type: rows[0].arquivo_tipo || 'application/pdf' };
 }

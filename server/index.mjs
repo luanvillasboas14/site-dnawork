@@ -3,6 +3,7 @@ import zlib from 'node:zlib';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { createResumeLead } from './createResumeLead.mjs';
+import { handleJobs, handleResumeFile } from './api.mjs';
 
 const app = express();
 const dist = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist');
@@ -67,6 +68,9 @@ app.post('/api/curriculo-lead', async (req, res) => {
     res.status(400).json({ message: error instanceof Error ? error.message : 'Não foi possível enviar agora.' });
   }
 });
+
+app.get('/api/vagas', handleJobs);
+app.get('/api/curriculos/:file', (req, res) => handleResumeFile(req, res, req.params.file));
 
 app.get('/.well-known/ard.json', (_req, res) => {
   res.type('application/json');

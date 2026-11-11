@@ -9,6 +9,17 @@ function resumeLeadApi() {
   return {
     name: 'resume-lead-api',
     configureServer(server) {
+      const loadApi = () => {
+        const apiFile = path.resolve(__dirname, 'server/api.mjs');
+        return import(pathToFileURL(apiFile).href);
+      };
+      server.middlewares.use('/api/vagas', async (req, res) => {
+        (await loadApi()).handleJobs(req, res);
+      });
+      server.middlewares.use('/api/curriculos/', async (req, res) => {
+        const fileName = (req.url || '').split('?')[0].replace(/^\/+/, '');
+        (await loadApi()).handleResumeFile(req, res, fileName);
+      });
       server.middlewares.use('/api/curriculo-lead', (req, res) => {
         if (req.method !== 'POST') {
           res.statusCode = 405;
